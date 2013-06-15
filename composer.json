@@ -1,0 +1,20 @@
+{
+    "name": "adanlobato/deploio",
+    "description": "A simple tool to deploy Symfony projects to production",
+    "require": {
+        "symfony/console": "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7.17"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adán Lobato",
+            "email": "adan.lobato@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-0":{ "adanlobato\\Deploio": "src/" }
+    }
+}
