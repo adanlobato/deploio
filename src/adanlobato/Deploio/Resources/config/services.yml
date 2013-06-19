@@ -1,0 +1,4 @@
+services:
+    deployer:
+        class: adanlobato\Deploio\Deployer\RsyncDeployer
+        arguments: ["@console.input", "@console.output"]

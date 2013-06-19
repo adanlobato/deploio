@@ -61,7 +61,7 @@ class RsyncProcess
 
         $builder = ProcessBuilder::create()
             ->setPrefix('rsync')
-            ->setArguments(array_merge(explode(' ', $this->options), array(
+            ->setArguments(array_merge($this->options, array(
                 $this->source,
                 $this->destination
             )));
