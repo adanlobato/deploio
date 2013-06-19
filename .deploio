@@ -1,0 +1,11 @@
+deploio:
+    name: foo
+    servers:
+        production:
+            host: example.com
+            port: 1234
+            user: johndoe
+            dir: /httpdocs
+        integration:
+            host: integration.local
+            dir: /var/www/foo/httpdocs

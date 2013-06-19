@@ -57,12 +57,6 @@ class Application extends BaseApplication
         $this->container->register('console.input', 'Symfony\Component\Console\Input\ArgvInput');
         $this->container->register('console.output', 'Symfony\Component\Console\Output\ConsoleOutput');
 
-        $this->container->registerExtension(new DeploioExtension());
-        if (file_exists(getcwd().'/.deploio')) {
-            $loader = new YamlFileLoader($this->container, new FileLocator(getcwd()));
-            $loader->load('.deploio');
-        }
-
         $this->container->compile();
     }
 }

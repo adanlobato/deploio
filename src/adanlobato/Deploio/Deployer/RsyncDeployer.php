@@ -5,19 +5,12 @@ namespace adanlobato\Deploio\Deployer;
 use Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Output\OutputInterface;
 
-use adanlobato\Deploio\Process\RsyncProcess\ServerInterface,
-    adanlobato\Deploio\Process\RsyncProcess\Server,
-    adanlobato\Deploio\Process\RsyncProcess;
+use adanlobato\Deploio\Process\RsyncProcess;
 
 class RsyncDeployer
 {
     protected $input;
     protected $output;
-
-    /**
-     * @var ServerInterface[]
-     */
-    protected $servers;
 
     public function __construct(InputInterface $input, OutputInterface $output)
     {
@@ -25,20 +18,7 @@ class RsyncDeployer
         $this->output = $output;
     }
 
-    public function addServer($serverName, ServerInterface $server)
-    {
-        $this->servers[$serverName] = $server;
-    }
-
     public function deploy($source, $destination, $dryRun = false)
-    {
-        $source      = isset($this->servers[$source]) ? $this->servers[$source] : Server::createFromString($source);
-        $destination = isset($this->servers[$destination]) ? $this->servers[$destination] : Server::createFromString($destination);
-
-        $this->doDeploy($source, $destination, $dryRun);
-    }
-
-    private function doDeploy(ServerInterface $source, ServerInterface $destination, $dryRun)
     {
         $this->output->writeln(sprintf(
             'Deploying <comment>%s</comment> into <comment>%s</comment> <info>%s</info>',
@@ -51,14 +31,6 @@ class RsyncDeployer
 
         if ($dryRun) {
             $options[] = '--dry-run';
-        }
-
-        if (22 !== $source->getPort()) {
-            $options[] = sprintf('--rsh=ssh -p%d', $source->getPort());
-        }
-
-        if (22 !== $destination->getPort()) {
-            $options[] = sprintf('--rsh=ssh -p%d', $destination->getPort());
         }
 
         $output = $this->output;
