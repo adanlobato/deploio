@@ -30,6 +30,7 @@ class Application extends BaseApplication
         $this->buildContainer();
 
         $this->add(new Command\DeployCommand());
+        $this->add(new Command\CompileCommand());
     }
 
     public function run(InputInterface $input = null, OutputInterface $output = null)
