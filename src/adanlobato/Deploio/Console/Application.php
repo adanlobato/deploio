@@ -13,7 +13,8 @@ use Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Output\OutputInterface;
 
 use adanlobato\Deploio\Console\Command;
-use adanlobato\Deploio\DependencyInjection\DeploioExtension;
+use adanlobato\Deploio\DependencyInjection\DeploioExtension,
+    adanlobato\Deploio\DependencyInjection\Compiler;
 
 class Application extends BaseApplication
 {
@@ -58,6 +59,7 @@ class Application extends BaseApplication
         $this->container->register('console.output', 'Symfony\Component\Console\Output\ConsoleOutput');
 
         $this->container->registerExtension(new DeploioExtension());
+        $this->container->addCompilerPass(new Compiler\RegisterServersPass());
         if (file_exists(getcwd().'/.deploio')) {
             $loader = new YamlFileLoader($this->container, new FileLocator(getcwd()));
             $loader->load('.deploio');
